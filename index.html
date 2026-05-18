@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>数构寻迹</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="deck-shell">
+      <section class="slide" aria-label="查找算法可视化演示">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">数据结构 · 查找演示台</p>
+            <h1>数构寻迹</h1>
+          </div>
+          <nav class="algorithm-tabs" id="algorithmTabs" aria-label="选择查找算法"></nav>
+        </header>
+
+        <section class="content-grid">
+          <aside class="case-panel">
+            <div class="panel-heading">
+              <span>数据组</span>
+              <strong id="dataSetCount">0</strong>
+            </div>
+            <div class="dataset-list" id="dataSetList"></div>
+            <div class="panel-heading">
+              <span>典型情况</span>
+              <strong id="caseCount">0</strong>
+            </div>
+            <div class="case-list" id="caseList"></div>
+          </aside>
+
+          <section class="visual-panel">
+            <div class="visual-head">
+              <div>
+                <p id="algorithmDescription" class="description"></p>
+                <h2 id="caseTitle"></h2>
+              </div>
+              <div class="target-card">
+                <span>目标值</span>
+                <strong id="targetValue"></strong>
+              </div>
+            </div>
+
+            <div class="stage" id="stage">
+              <div class="index-zone" id="indexZone"></div>
+              <div class="array-zone" id="arrayZone"></div>
+              <div class="pointer-zone" id="pointerZone"></div>
+            </div>
+          </section>
+
+          <aside class="explain-panel">
+            <div class="status-badge" id="statusBadge">准备开始</div>
+            <div class="stats">
+              <div>
+                <span>步骤</span>
+                <strong id="stepProgress">0 / 0</strong>
+              </div>
+              <div>
+                <span>比较次数</span>
+                <strong id="compareCount">0</strong>
+              </div>
+            </div>
+            <p class="step-text" id="stepText"></p>
+            <ol class="history-list" id="historyList"></ol>
+          </aside>
+        </section>
+
+        <footer class="controls">
+          <button type="button" id="prevBtn">上一步</button>
+          <button type="button" id="nextBtn" class="primary">下一步</button>
+          <button type="button" id="resetBtn">重置</button>
+          <button type="button" id="autoBtn">自动播放</button>
+        </footer>
+      </section>
+    </main>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
