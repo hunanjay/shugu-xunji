@@ -3,93 +3,101 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>数构寻迹</title>
+    <title>数构寻迹 · 章节总览</title>
     <link rel="icon" href="./favicon.svg?v=1" type="image/svg+xml" />
-    <link rel="stylesheet" href="./css/styles.css" />
+    <link rel="stylesheet" href="./css/styles.css?v=5" />
   </head>
-  <body>
-    <main class="deck-shell">
-      <section class="slide" aria-label="查找算法可视化演示">
-        <header class="topbar">
+  <body class="home-page">
+    <main class="home-shell">
+      <section class="home-hero">
+        <div class="home-hero-copy">
+          <p class="eyebrow">王道 408 · 数据结构学习导航</p>
+          <h1>数构寻迹</h1>
+          <p class="home-lead">
+            以王道 408《数据结构》为主线，按章节组织内容。已完成第 7 章查找的可视化演示，其余章节先保留
+            coming soon 层级，避免把完整教材内容挤在同一页里。
+          </p>
+          <div class="home-actions">
+            <a class="home-primary-link" href="./search.html">进入第 7 章查找</a>
+            <span class="home-secondary-note">当前只开放查找章，其余章节预留目录结构</span>
+          </div>
+        </div>
+        <aside class="home-summary-card">
           <div>
-            <p class="eyebrow">数据结构 · 查找演示台</p>
-            <h1>数构寻迹</h1>
+            <span>已开放</span>
+            <strong>第 7 章 查找</strong>
           </div>
-          <div class="header-actions">
-            <nav class="algorithm-tabs" id="algorithmTabs" aria-label="选择查找算法"></nav>
-            <button type="button" id="themeToggle" class="theme-toggle-btn" aria-label="切换主题" title="切换暗黑模式">
-              <svg class="sun-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
-              <svg class="moon-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
-            </button>
+          <div>
+            <span>预留章节</span>
+            <strong>1 - 6 章，8 章</strong>
           </div>
-        </header>
+          <div>
+            <span>组织方式</span>
+            <strong>章节 - 小节 - 算法 - 用例</strong>
+          </div>
+        </aside>
+      </section>
 
-        <section class="content-grid">
-          <aside class="case-panel">
-            <div class="panel-heading">
-              <span>数据组</span>
-              <strong id="dataSetCount">0</strong>
-            </div>
-            <div class="dataset-list" id="dataSetList"></div>
-            <div class="panel-heading">
-              <span>典型情况</span>
-              <strong id="caseCount">0</strong>
-            </div>
-            <div class="case-list" id="caseList"></div>
-          </aside>
+      <section class="home-section">
+        <div class="section-heading">
+          <div>
+            <p>教材目录</p>
+            <h2>按章节进入，不堆在一个页面里</h2>
+          </div>
+          <span>Chapter map</span>
+        </div>
 
-          <section class="visual-panel">
-            <div class="visual-head">
-              <div>
-                <p id="algorithmDescription" class="description"></p>
-                <h2 id="caseTitle"></h2>
-              </div>
-              <div class="target-control-group">
-                <div class="custom-target-input-wrapper">
-                  <input type="text" id="customTargetInput" placeholder="自定义目标值..." aria-label="自定义目标值" />
-                  <button type="button" id="applyCustomTargetBtn">修改</button>
-                </div>
-                <div class="target-card">
-                  <span id="targetLabel">目标值</span>
-                  <strong id="targetValue"></strong>
-                </div>
-              </div>
-            </div>
-
-            <div class="stage" id="stage">
-              <div class="scene-float-layer" id="sceneFloatLayer" aria-hidden="true"></div>
-              <div class="index-zone" id="indexZone"></div>
-              <div class="array-zone" id="arrayZone"></div>
-              <div class="pointer-zone" id="pointerZone"></div>
-            </div>
-          </section>
-
-          <aside class="explain-panel">
-            <div class="status-badge" id="statusBadge">准备开始</div>
-            <div class="stats">
-              <div>
-                <span>步骤</span>
-                <strong id="stepProgress">0 / 0</strong>
-              </div>
-              <div>
-                <span>比较次数</span>
-                <strong id="compareCount">0</strong>
-              </div>
-            </div>
-            <p class="step-text" id="stepText"></p>
-            <ol class="history-list" id="historyList"></ol>
-          </aside>
-        </section>
-
-        <footer class="controls">
-          <button type="button" id="prevBtn">上一步</button>
-          <button type="button" id="nextBtn" class="primary">下一步</button>
-          <button type="button" id="resetBtn">重置</button>
-          <button type="button" id="autoBtn">自动播放</button>
-        </footer>
+        <div class="home-chapter-grid">
+          <article class="chapter-tile comingsoon">
+            <span class="chapter-tag">第 1 章</span>
+            <strong>绪论</strong>
+            <p>1.1 数据结构的基本概念<br />1.2 算法和算法评价</p>
+            <em>coming soon</em>
+          </article>
+          <article class="chapter-tile comingsoon">
+            <span class="chapter-tag">第 2 章</span>
+            <strong>线性表</strong>
+            <p>2.1 定义和基本操作<br />2.2 顺序表示<br />2.3 链式表示</p>
+            <em>coming soon</em>
+          </article>
+          <article class="chapter-tile comingsoon">
+            <span class="chapter-tag">第 3 章</span>
+            <strong>栈、队列和数组</strong>
+            <p>3.1 栈<br />3.2 队列<br />3.3 应用<br />3.4 压缩存储</p>
+            <em>coming soon</em>
+          </article>
+          <article class="chapter-tile comingsoon">
+            <span class="chapter-tag">第 4 章</span>
+            <strong>串</strong>
+            <p>4.1 定义和实现<br />4.2 模式匹配</p>
+            <em>coming soon</em>
+          </article>
+          <article class="chapter-tile comingsoon">
+            <span class="chapter-tag">第 5 章</span>
+            <strong>树与二叉树</strong>
+            <p>5.1 树的基本概念<br />5.2 二叉树性质<br />5.3 遍历与线索化<br />5.4 转换<br />5.5 应用</p>
+            <em>coming soon</em>
+          </article>
+          <article class="chapter-tile comingsoon">
+            <span class="chapter-tag">第 6 章</span>
+            <strong>图</strong>
+            <p>6.1 基本概念<br />6.2 存储及基本操作<br />6.3 遍历<br />6.4 应用</p>
+            <em>coming soon</em>
+          </article>
+          <a class="chapter-tile active" href="./search.html">
+            <span class="chapter-tag">第 7 章</span>
+            <strong>查找</strong>
+            <p>7.1 线性结构查找<br />7.2 树形结构查找<br />7.3 B 树和 B+ 树<br />7.4 散列表</p>
+            <em>open now</em>
+          </a>
+          <article class="chapter-tile comingsoon">
+            <span class="chapter-tag">第 8 章</span>
+            <strong>排序</strong>
+            <p>8.1 基本概念<br />8.2 插入排序<br />8.3 交换排序<br />8.4 选择排序<br />8.5 归并与基数排序<br />8.6 比较<br />8.7 外部排序</p>
+            <em>coming soon</em>
+          </article>
+        </div>
       </section>
     </main>
-
-    <script type="module" src="./js/app.js?v=4"></script>
   </body>
 </html>

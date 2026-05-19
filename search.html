@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>数构寻迹 · 第 7 章查找</title>
+    <link rel="icon" href="./favicon.svg?v=1" type="image/svg+xml" />
+    <link rel="stylesheet" href="./css/styles.css?v=7" />
+  </head>
+  <body>
+    <main class="deck-shell">
+      <section class="slide" aria-label="查找算法可视化演示">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">王道 408 · 第 7 章</p>
+            <h1>数构寻迹</h1>
+            <p id="chapterBreadcrumb" class="chapter-breadcrumb"></p>
+          </div>
+          <div class="header-actions">
+            <a class="home-back-link" href="./index.html">返回总览</a>
+            <nav class="algorithm-tabs" id="algorithmTabs" aria-label="选择查找算法"></nav>
+            <button type="button" id="themeToggle" class="theme-toggle-btn" aria-label="切换主题" title="切换暗黑模式">
+              <svg class="sun-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+              <svg class="moon-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+            </button>
+          </div>
+        </header>
+
+        <section class="content-grid">
+          <aside class="left-column">
+            <section class="catalog-panel">
+              <div class="panel-heading">
+                <span>数据组</span>
+                <strong id="dataSetCount">0</strong>
+              </div>
+              <div class="dataset-list" id="dataSetList"></div>
+            </section>
+
+            <section class="catalog-panel">
+              <div class="panel-heading">
+                <span>典型情况</span>
+                <strong id="caseCount">0</strong>
+              </div>
+              <div class="case-list" id="caseList"></div>
+            </section>
+          </aside>
+
+          <section class="visual-panel">
+            <div class="visual-head">
+              <div>
+                <p id="algorithmDescription" class="description"></p>
+                <h2 id="caseTitle"></h2>
+              </div>
+              <div class="target-control-group">
+                <div class="target-card">
+                  <span id="targetLabel">目标值</span>
+                  <strong id="targetValue"></strong>
+                </div>
+                <label class="target-inline-edit" for="customTargetInput" title="点击修改目标值">
+                  <input type="text" id="customTargetInput" placeholder="点击修改" aria-label="自定义目标值" />
+                  <span class="target-underline" aria-hidden="true"></span>
+                </label>
+              </div>
+            </div>
+
+            <div class="stage" id="stage">
+              <div class="scene-float-layer" id="sceneFloatLayer" aria-hidden="true"></div>
+              <div class="index-zone" id="indexZone"></div>
+              <div class="array-zone" id="arrayZone"></div>
+              <div class="pointer-zone" id="pointerZone"></div>
+            </div>
+          </section>
+
+          <aside class="explain-panel">
+            <div class="status-badge" id="statusBadge">准备开始</div>
+            <div class="stats">
+              <div>
+                <span>步骤</span>
+                <strong id="stepProgress">0 / 0</strong>
+              </div>
+              <div>
+                <span>比较次数</span>
+                <strong id="compareCount">0</strong>
+              </div>
+            </div>
+            <div class="analysis-card">
+              <div class="analysis-row">
+                <span>当前分析</span>
+                <strong id="currentFocus">等待开始</strong>
+              </div>
+              <div class="analysis-row">
+                <span>当前区间</span>
+                <strong id="currentRange">-</strong>
+              </div>
+              <div class="analysis-row">
+                <span>当前结论</span>
+                <strong id="currentConclusion">准备开始</strong>
+              </div>
+            </div>
+            <p class="step-text" id="stepText"></p>
+            <ol class="history-list" id="historyList"></ol>
+          </aside>
+        </section>
+
+        <footer class="controls">
+          <button type="button" id="prevBtn">上一步</button>
+          <button type="button" id="nextBtn" class="primary">下一步</button>
+          <button type="button" id="resetBtn">重置</button>
+          <button type="button" id="autoBtn">自动播放</button>
+        </footer>
+      </section>
+    </main>
+
+    <script type="module" src="./js/app.js?v=7"></script>
+  </body>
+</html>

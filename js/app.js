@@ -12,6 +12,7 @@ import { renderHashTable } from "./components/hashVisualizer.js?v=5";
 import { renderTree, drawTreeConnections } from "./components/treeVisualizer.js?v=5";
 
 const state = {
+  chapterIndex: 6,
   algorithmIndex: 0,
   caseIndex: 0,
   dataSetIndex: 0,
@@ -24,6 +25,9 @@ const state = {
 };
 
 const els = {
+  chapterList: document.querySelector("#chapterList"),
+  chapterCount: document.querySelector("#chapterCount"),
+  chapterBreadcrumb: document.querySelector("#chapterBreadcrumb"),
   algorithmTabs: document.querySelector("#algorithmTabs"),
   caseList: document.querySelector("#caseList"),
   caseCount: document.querySelector("#caseCount"),
@@ -38,6 +42,9 @@ const els = {
   pointerZone: document.querySelector("#pointerZone"),
   sceneFloatLayer: document.querySelector("#sceneFloatLayer"),
   statusBadge: document.querySelector("#statusBadge"),
+  currentFocus: document.querySelector("#currentFocus"),
+  currentRange: document.querySelector("#currentRange"),
+  currentConclusion: document.querySelector("#currentConclusion"),
   stepProgress: document.querySelector("#stepProgress"),
   compareCount: document.querySelector("#compareCount"),
   stepText: document.querySelector("#stepText"),
@@ -48,7 +55,6 @@ const els = {
   autoBtn: document.querySelector("#autoBtn"),
   themeToggle: document.querySelector("#themeToggle"),
   customTargetInput: document.querySelector("#customTargetInput"),
-  applyCustomTargetBtn: document.querySelector("#applyCustomTargetBtn"),
 };
 
 const algorithms = [
@@ -325,6 +331,123 @@ const algorithms = [
   },
 ];
 
+const chapterCatalog = [
+  {
+    number: 1,
+    title: "绪论",
+    status: "comingsoon",
+    sections: [
+      { code: "1.1", title: "数据结构的基本概念" },
+      { code: "1.2", title: "算法和算法评价" },
+    ],
+  },
+  {
+    number: 2,
+    title: "线性表",
+    status: "comingsoon",
+    sections: [
+      { code: "2.1", title: "线性表的定义和基本操作" },
+      { code: "2.2", title: "线性表的顺序表示" },
+      { code: "2.3", title: "线性表的链式表示" },
+    ],
+  },
+  {
+    number: 3,
+    title: "栈、队列和数组",
+    status: "comingsoon",
+    sections: [
+      { code: "3.1", title: "栈" },
+      { code: "3.2", title: "队列" },
+      { code: "3.3", title: "栈和队列的应用" },
+      { code: "3.4", title: "数组和特殊矩阵的压缩存储" },
+    ],
+  },
+  {
+    number: 4,
+    title: "串",
+    status: "comingsoon",
+    sections: [
+      { code: "4.1", title: "串的定义和实现" },
+      { code: "4.2", title: "串的模式匹配" },
+    ],
+  },
+  {
+    number: 5,
+    title: "树与二叉树",
+    status: "comingsoon",
+    sections: [
+      { code: "5.1", title: "树的基本概念" },
+      { code: "5.2", title: "二叉树的概念及性质" },
+      { code: "5.3", title: "二叉树的遍历和线索二叉树" },
+      { code: "5.4", title: "树、森林与二叉树的转换" },
+      { code: "5.5", title: "树与二叉树的应用" },
+    ],
+  },
+  {
+    number: 6,
+    title: "图",
+    status: "comingsoon",
+    sections: [
+      { code: "6.1", title: "图的基本概念" },
+      { code: "6.2", title: "图的存储及基本操作" },
+      { code: "6.3", title: "图的遍历" },
+      { code: "6.4", title: "图的应用" },
+    ],
+  },
+  {
+    number: 7,
+    title: "查找",
+    status: "active",
+    sections: [
+      {
+        code: "7.1",
+        title: "线性结构查找",
+        algorithms: ["sequential", "binary", "block"],
+      },
+      {
+        code: "7.2",
+        title: "树形结构查找",
+        algorithms: ["btree", "bplustree", "avl", "rbtree"],
+      },
+      {
+        code: "7.3",
+        title: "B树和B+树",
+        algorithms: ["btree", "bplustree"],
+      },
+      {
+        code: "7.4",
+        title: "散列表",
+        algorithms: ["hash"],
+      },
+    ],
+  },
+  {
+    number: 8,
+    title: "排序",
+    status: "comingsoon",
+    sections: [
+      { code: "8.1", title: "排序的基本概念" },
+      { code: "8.2", title: "插入排序" },
+      { code: "8.3", title: "交换排序" },
+      { code: "8.4", title: "选择排序" },
+      { code: "8.5", title: "归并排序和基数排序" },
+      { code: "8.6", title: "各种内部排序算法的比较" },
+      { code: "8.7", title: "外部排序" },
+    ],
+  },
+];
+
+const algorithmMeta = {
+  sequential: { chapter: 7, sectionCode: "7.1", sectionTitle: "线性结构查找" },
+  binary: { chapter: 7, sectionCode: "7.1", sectionTitle: "线性结构查找" },
+  block: { chapter: 7, sectionCode: "7.1", sectionTitle: "线性结构查找" },
+  btree: { chapter: 7, sectionCode: "7.2", sectionTitle: "树形结构查找" },
+  bplustree: { chapter: 7, sectionCode: "7.2", sectionTitle: "树形结构查找" },
+  avl: { chapter: 7, sectionCode: "7.2", sectionTitle: "树形结构查找" },
+  rbtree: { chapter: 7, sectionCode: "7.2", sectionTitle: "树形结构查找" },
+  hash: { chapter: 7, sectionCode: "7.4", sectionTitle: "散列表" },
+};
+
 const extraDataSets = {
   sequential: [
     [{ label: "数据组 B · 偶数", data: [8, 16, 24, 32, 40, 48], target: 8 }],
@@ -342,6 +465,10 @@ const extraDataSets = {
 
 function currentAlgorithm() {
   return algorithms[state.algorithmIndex];
+}
+
+function currentChapter() {
+  return chapterCatalog[state.chapterIndex];
 }
 
 function currentCase() {
@@ -377,6 +504,7 @@ function currentStep() {
 
 function init() {
   initTheme();
+  renderChapterCatalog();
   renderAlgorithmTabs();
   bindControls();
   els.caseList.addEventListener("click", handleCaseClick);
@@ -404,7 +532,7 @@ function renderAlgorithmTabs() {
   els.algorithmTabs.innerHTML = algorithms
     .map(
       (algorithm, index) =>
-        `<button type="button" data-algorithm="${index}">
+        `<button type="button" data-algorithm="${index}" title="${algorithm.name}">
           <span class="algorithm-tab-logo" aria-hidden="true">
             <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <circle cx="6" cy="6" r="2.2"></circle>
@@ -425,6 +553,51 @@ function renderAlgorithmTabs() {
     if (!button) return;
     loadCase(Number(button.dataset.algorithm), 0);
   });
+}
+
+function renderChapterCatalog() {
+  if (!els.chapterList) return;
+
+  const chapter = currentChapter();
+  if (!chapter) return;
+
+  els.chapterCount.textContent = `${chapter.sections.length} 个小节`;
+  els.chapterList.innerHTML = `
+    <article class="chapter-card active">
+      <div class="chapter-card-head">
+        <div>
+          <strong>第 ${chapter.number} 章 ${chapter.title}</strong>
+          <span>当前专页 · ${chapter.sections.length} 个小节</span>
+        </div>
+        <em>open now</em>
+      </div>
+      <div class="chapter-section-list">
+        ${chapter.sections
+          .map((section) => {
+            const algorithmTags = section.algorithms
+              ? section.algorithms
+                  .map((algorithmId) => {
+                    const algorithm = algorithms.find((item) => item.id === algorithmId);
+                    const meta = algorithmMeta[algorithmId];
+                    return `<span class="catalog-algorithm-tag">${meta?.sectionCode ?? ""} ${algorithm?.name ?? algorithmId}</span>`;
+                  })
+                  .join("")
+              : `<span class="catalog-comingsoon">coming soon</span>`;
+
+            return `
+              <div class="chapter-section-item">
+                <div class="chapter-section-copy">
+                  <strong>${section.code} ${section.title}</strong>
+                  <span>${section.algorithms ? `${section.algorithms.length} 个算法` : "预留层级"}</span>
+                </div>
+                <div class="chapter-section-tags">${algorithmTags}</div>
+              </div>
+            `;
+          })
+          .join("")}
+      </div>
+    </article>
+  `;
 }
 
 function renderCaseList() {
@@ -510,13 +683,16 @@ function bindControls() {
     }
   });
 
-  if (els.applyCustomTargetBtn && els.customTargetInput) {
-    els.applyCustomTargetBtn.addEventListener("click", () => {
-      applyCustomTarget();
-    });
-
+  if (els.customTargetInput) {
     els.customTargetInput.addEventListener("keydown", (event) => {
       if (event.key === "Enter") {
+        applyCustomTarget();
+        els.customTargetInput.blur();
+      }
+    });
+
+    els.customTargetInput.addEventListener("blur", () => {
+      if (els.customTargetInput.value.trim()) {
         applyCustomTarget();
       }
     });
@@ -546,6 +722,7 @@ function applyCustomTarget() {
 
 function loadCase(algorithmIndex, caseIndex) {
   stopAuto();
+  state.chapterIndex = 6;
   state.algorithmIndex = algorithmIndex;
   state.caseIndex = caseIndex;
   state.dataSetIndex = defaultDataSetIndex(algorithmIndex, caseIndex);
@@ -618,6 +795,7 @@ function renderWithTransition() {
 }
 
 function render() {
+  const chapter = currentChapter();
   const algorithm = currentAlgorithm();
   const searchCase = currentCase();
   const dataSet = currentDataSet();
@@ -641,15 +819,19 @@ function render() {
     );
   });
 
+  if (els.chapterBreadcrumb) {
+    els.chapterBreadcrumb.textContent = `${chapter ? `第 ${chapter.number} 章 ${chapter.title}` : ""}${algorithm ? ` / ${algorithm.name}` : ""}`;
+  }
+
   els.algorithmDescription.textContent = algorithm.description;
   els.caseTitle.textContent = `${searchCase.name} · ${dataSet.label}`;
   els.targetLabel.textContent = searchCase.targetLabel ?? "目标值";
   els.targetValue.textContent = dataSet.target;
 
   const isHashBuild = algorithm.id === "hash" && searchCase.operation === "build";
-  const customTargetWrapper = document.querySelector(".custom-target-input-wrapper");
-  if (customTargetWrapper) {
-    customTargetWrapper.style.display = isHashBuild ? "none" : "flex";
+  const customTargetEditor = document.querySelector(".target-inline-edit");
+  if (customTargetEditor) {
+    customTargetEditor.style.display = isHashBuild ? "none" : "grid";
   }
 
   if (step.tree) {
@@ -692,11 +874,62 @@ function renderExplanation(step) {
   els.statusBadge.textContent = statusText[step.status] ?? "查找中";
   els.stepProgress.textContent = `${state.stepIndex} / ${state.steps.length - 1}`;
   els.compareCount.textContent = step.compareCount ?? 0;
+  els.currentFocus.textContent = deriveCurrentFocus(step);
+  els.currentRange.textContent = deriveCurrentRange(step);
+  els.currentConclusion.textContent = deriveCurrentConclusion(step);
   els.stepText.textContent = step.text;
   els.historyList.innerHTML = state.steps
     .slice(1, state.stepIndex + 1)
     .map((item) => `<li>${item.text}</li>`)
     .join("");
+}
+
+function deriveCurrentFocus(step) {
+  if (step.hashTable) {
+    return step.operationLabel ?? "散列表操作";
+  }
+  if (step.activeNodeId) {
+    return `当前节点 ${step.activeNodeId}`;
+  }
+  if (step.activeIndex !== undefined && step.activeIndex !== null) {
+    return `比较 a[${step.activeIndex}]`;
+  }
+  if (step.activeBlock !== undefined && step.activeBlock !== null) {
+    return `第 ${step.activeBlock + 1} 块`;
+  }
+  return "等待开始";
+}
+
+function deriveCurrentRange(step) {
+  if (step.range && step.range.length === 2) {
+    return `[${step.range[0]}, ${step.range[1]}]`;
+  }
+  if (step.blockRange && step.blockRange.length === 2) {
+    return `[${step.blockRange[0]}, ${step.blockRange[1]}]`;
+  }
+  if (step.activeIndex !== undefined && step.activeIndex !== null) {
+    return `a[${step.activeIndex}]`;
+  }
+  if (step.activeBucketIndex !== undefined && step.activeBucketIndex !== null) {
+    return `桶 ${step.activeBucketIndex}`;
+  }
+  if (step.activeNodeId) {
+    return step.activeNodeId;
+  }
+  return "-";
+}
+
+function deriveCurrentConclusion(step) {
+  if (step.status === "success") {
+    return "命中目标";
+  }
+  if (step.status === "failure") {
+    return "查找失败";
+  }
+  if (step.status === "running") {
+    return "继续比较";
+  }
+  return "准备开始";
 }
 
 function updateButtons() {
