@@ -5,13 +5,19 @@ export function renderTree(els, dataSet, step, state, algorithms) {
   const matchedKeyIndex = step.matchedKeyIndex;
   const rejectedKeyIndexes = step.rejectedKeyIndexes ?? [];
   const path = step.path ?? [];
+  const levelKeys = Object.keys(tree).sort((a, b) => {
+    const aNum = Number.parseInt(a.replace(/\D/g, ""), 10);
+    const bNum = Number.parseInt(b.replace(/\D/g, ""), 10);
+    return aNum - bNum;
+  });
 
   let html = `<div class="tree-container">`;
   html += `<svg class="tree-connections-svg"></svg>`;
 
-  for (const levelKey of ["level0", "level1", "level2"]) {
+  for (const [levelIndex, levelKey] of levelKeys.entries()) {
     const levelNodes = tree[levelKey];
-    html += `<div class="tree-level ${levelKey}">`;
+    const levelGap = levelIndex === 0 ? 0 : levelIndex === 1 ? 200 : levelIndex === 2 ? 24 : 28;
+    html += `<div class="tree-level ${levelKey}" style="gap: ${levelGap}px">`;
 
     for (const node of levelNodes) {
       const isActive = node.id === activeNodeId;
@@ -28,6 +34,20 @@ export function renderTree(els, dataSet, step, state, algorithms) {
         html += `
           <div class="${nodeClasses.join(" ")}" id="${node.id}" data-parent-ids="${node.children ? node.children.join(",") : ""}">
             <span class="rb-node-val">${node.key}</span>
+          </div>
+        `;
+      } else if (step.isAVL) {
+        const nodeClasses = ["tree-node", "avl-node"];
+        if (isActive) nodeClasses.push("active");
+        if (isPath && !isActive) nodeClasses.push("in-path");
+        if (node.id === activeNodeId && matchedKeyIndex !== null && matchedKeyIndex !== undefined) {
+          nodeClasses.push("found");
+        }
+
+        html += `
+          <div class="${nodeClasses.join(" ")}" id="${node.id}" data-parent-ids="${node.children ? node.children.join(",") : ""}">
+            <span class="avl-node-key">${node.key}</span>
+            <span class="avl-node-bf">bf ${node.balanceFactor ?? 0}</span>
           </div>
         `;
       } else {

@@ -5,14 +5,16 @@ export function generateBTreeSteps(searchCase) {
   const tree = {
     level0: [{ id: "node_root", keys: [40], children: ["node_l1", "node_r1"] }],
     level1: [
-      { id: "node_l1", keys: [20], children: ["node_leaf1", "node_leaf2"] },
-      { id: "node_r1", keys: [60], children: ["node_leaf3", "node_leaf4"] }
+      { id: "node_l1", keys: [15, 30], children: ["node_leaf1", "node_leaf2", "node_leaf3"] },
+      { id: "node_r1", keys: [60, 75], children: ["node_leaf4", "node_leaf5", "node_leaf6"] }
     ],
     level2: [
-      { id: "node_leaf1", keys: [10], children: [] },
-      { id: "node_leaf2", keys: [30], children: [] },
-      { id: "node_leaf3", keys: [50], children: [] },
-      { id: "node_leaf4", keys: [70], children: [] }
+      { id: "node_leaf1", keys: [5, 10], children: [] },
+      { id: "node_leaf2", keys: [20, 25], children: [] },
+      { id: "node_leaf3", keys: [35], children: [] },
+      { id: "node_leaf4", keys: [45, 50], children: [] },
+      { id: "node_leaf5", keys: [65, 70], children: [] },
+      { id: "node_leaf6", keys: [80, 85], children: [] }
     ]
   };
 

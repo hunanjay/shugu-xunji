@@ -3,21 +3,21 @@ export function generateRBTreeSteps(searchCase) {
   const steps = [];
 
   const tree = {
-    level0: [{ id: "node_root", key: 40, color: "black", children: ["node_l1", "node_r1"] }],
+    level0: [{ id: "node_root", key: 26, color: "black", children: ["node_l1", "node_r1"] }],
     level1: [
-      { id: "node_l1", key: 20, color: "red", children: ["node_ll2", "node_lr2"] },
-      { id: "node_r1", key: 60, color: "black", children: ["node_rl2", "node_rr2"] }
+      { id: "node_l1", key: 14, color: "red", children: ["node_ll2", "node_lr2"] },
+      { id: "node_r1", key: 45, color: "black", children: ["node_rl2", "node_rr2"] }
     ],
     level2: [
-      { id: "node_ll2", key: 10, color: "black", children: [] },
-      { id: "node_lr2", key: 30, color: "black", children: [] },
-      { id: "node_rl2", key: 50, color: "red", children: [] },
-      { id: "node_rr2", key: 70, color: "red", children: [] }
+      { id: "node_ll2", key: 7, color: "black", children: [] },
+      { id: "node_lr2", key: 18, color: "black", children: [] },
+      { id: "node_rl2", key: 39, color: "red", children: [] },
+      { id: "node_rr2", key: 50, color: "red", children: [] }
     ]
   };
 
   steps.push({
-    text: `准备在红黑树中查找目标值 ${target}。从根节点 [40] 开始。`,
+    text: `准备在红黑树中查找目标值 ${target}。从根节点 [26] 开始。`,
     compareCount: 0,
     status: "ready",
     tree,

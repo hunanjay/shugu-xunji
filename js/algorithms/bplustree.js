@@ -5,14 +5,16 @@ export function generateBPlusTreeSteps(searchCase) {
   const tree = {
     level0: [{ id: "node_root", keys: [40], children: ["node_l1", "node_r1"], isIndex: true }],
     level1: [
-      { id: "node_l1", keys: [20], children: ["node_leaf1", "node_leaf2"], isIndex: true },
-      { id: "node_r1", keys: [60], children: ["node_leaf3", "node_leaf4"], isIndex: true }
+      { id: "node_l1", keys: [20, 30], children: ["node_leaf1", "node_leaf2", "node_leaf3"], isIndex: true },
+      { id: "node_r1", keys: [60, 70], children: ["node_leaf4", "node_leaf5", "node_leaf6"], isIndex: true }
     ],
     level2: [
-      { id: "node_leaf1", keys: [10, 20], children: [], nextLeafId: "node_leaf2" },
-      { id: "node_leaf2", keys: [30, 40], children: [], nextLeafId: "node_leaf3" },
-      { id: "node_leaf3", keys: [50, 60], children: [], nextLeafId: "node_leaf4" },
-      { id: "node_leaf4", keys: [70, 80], children: [], nextLeafId: null }
+      { id: "node_leaf1", keys: [5, 10, 15], children: [], nextLeafId: "node_leaf2" },
+      { id: "node_leaf2", keys: [20, 25], children: [], nextLeafId: "node_leaf3" },
+      { id: "node_leaf3", keys: [30, 35], children: [], nextLeafId: "node_leaf4" },
+      { id: "node_leaf4", keys: [40, 45, 50], children: [], nextLeafId: "node_leaf5" },
+      { id: "node_leaf5", keys: [60, 65], children: [], nextLeafId: "node_leaf6" },
+      { id: "node_leaf6", keys: [70, 75, 80], children: [], nextLeafId: null }
     ]
   };
 
@@ -50,9 +52,9 @@ export function generateBPlusTreeSteps(searchCase) {
         const key = node.keys[i];
         compareCount++;
 
-        if (target <= key) {
+        if (target < key) {
           steps.push({
-            text: `索引项比较：目标值 ${target} <= 索引值 ${key}。进入左侧子树分支。`,
+            text: `索引项比较：目标值 ${target} < 索引值 ${key}。进入左侧子树分支。`,
             compareCount,
             status: "running",
             tree,
@@ -65,7 +67,7 @@ export function generateBPlusTreeSteps(searchCase) {
         } else {
           if (i === node.keys.length - 1) {
             steps.push({
-              text: `索引项比较：目标值 ${target} > 索引值 ${key}。进入最右侧子树分支。`,
+              text: `索引项比较：目标值 ${target} >= 索引值 ${key}。进入最右侧子树分支。`,
               compareCount,
               status: "running",
               tree,
@@ -76,7 +78,7 @@ export function generateBPlusTreeSteps(searchCase) {
             nextNodeId = node.children[i + 1];
           } else {
             steps.push({
-              text: `索引项比较：目标值 ${target} > 索引值 ${key}。继续在索引节点内往后匹配。`,
+              text: `索引项比较：目标值 ${target} >= 索引值 ${key}。继续在索引节点内往后匹配。`,
               compareCount,
               status: "running",
               tree,
