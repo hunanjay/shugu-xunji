@@ -502,6 +502,26 @@ function currentStep() {
   return state.steps[state.stepIndex];
 }
 
+function updateLeftColumnBalance() {
+  const leftColumn = document.querySelector(".left-column");
+  if (!leftColumn) return;
+
+  const dataSetCount = currentDataSetListLength();
+  const caseCount = currentCaseListLength();
+  const topWeight = Math.max(1, dataSetCount);
+  const bottomWeight = Math.max(1, caseCount);
+  leftColumn.style.setProperty("--left-top-fr", `${topWeight}`);
+  leftColumn.style.setProperty("--left-bottom-fr", `${bottomWeight}`);
+}
+
+function currentDataSetListLength() {
+  return getDataSets(currentAlgorithm(), currentCase(), state.caseIndex).length;
+}
+
+function currentCaseListLength() {
+  return currentAlgorithm().cases.length;
+}
+
 function init() {
   initTheme();
   renderChapterCatalog();
@@ -613,6 +633,7 @@ function renderCaseList() {
       `,
     )
     .join("");
+  updateLeftColumnBalance();
 }
 
 function renderDataSetList() {
@@ -634,6 +655,7 @@ function renderDataSetList() {
       `,
     )
     .join("");
+  updateLeftColumnBalance();
 }
 
 function dataSetSummary(dataSet) {
